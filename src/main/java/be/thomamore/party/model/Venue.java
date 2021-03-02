@@ -1,27 +1,48 @@
 package be.thomamore.party.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Venue {
+    @Id
+    private int id;
     private String venueName;
-private String linkMoreInfo;
-private int capacity;
-private boolean isFoodProvided;
-    private boolean isIndoor;
-    private boolean isOutdoor;
-    private boolean isFreeParkingavailable;
+    private String linkMoreInfo;
+    private int capacity;
+    private boolean foodProvided;
+    private boolean indoor;
+    private boolean outdoor;
+    private boolean freeParkingAvailable;
     private String city;
     private int distanceFromPublicTransportInKm;
 
+    public Venue() {
+    }
 
-    public Venue(String venueName, String linkMoreInfo, int capacity, boolean isFoodProvided, boolean isIndoor, boolean isOutdoor, boolean isFreeParkingavailable, String city, int distanceFromPublicTransportInKm) {
+    public Venue(String venueName, String linkMoreInfo, int capacity, boolean foodProvided, boolean indoor, boolean outdoor, boolean freeParkingAvailable, String city, int distanceFromPublicTransportInKm) {
         this.venueName = venueName;
         this.linkMoreInfo = linkMoreInfo;
         this.capacity = capacity;
-        this.isFoodProvided = isFoodProvided;
-        this.isIndoor = isIndoor;
-        this.isOutdoor = isOutdoor;
-        this.isFreeParkingavailable = isFreeParkingavailable;
+        this.foodProvided = foodProvided;
+        this.indoor = indoor;
+        this.outdoor = outdoor;
+        this.freeParkingAvailable = freeParkingAvailable;
         this.city = city;
         this.distanceFromPublicTransportInKm = distanceFromPublicTransportInKm;
+    }
+
+    public Venue(String venueName, String linkMoreInfo) {
+        this.venueName = venueName;
+        this.linkMoreInfo = linkMoreInfo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getVenueName() {
@@ -49,35 +70,35 @@ private boolean isFoodProvided;
     }
 
     public boolean isFoodProvided() {
-        return isFoodProvided;
+        return foodProvided;
     }
 
     public void setFoodProvided(boolean foodProvided) {
-        isFoodProvided = foodProvided;
+        this.foodProvided = foodProvided;
     }
 
     public boolean isIndoor() {
-        return isIndoor;
+        return indoor;
     }
 
     public void setIndoor(boolean indoor) {
-        isIndoor = indoor;
+        this.indoor = indoor;
     }
 
     public boolean isOutdoor() {
-        return isOutdoor;
+        return outdoor;
     }
 
     public void setOutdoor(boolean outdoor) {
-        isOutdoor = outdoor;
+        this.outdoor = outdoor;
     }
 
-    public boolean isFreeParkingavailable() {
-        return isFreeParkingavailable;
+    public boolean isFreeParkingAvailable() {
+        return freeParkingAvailable;
     }
 
-    public void setFreeParkingavailable(boolean freeParkingavailable) {
-        isFreeParkingavailable = freeParkingavailable;
+    public void setFreeParkingAvailable(boolean freeParkingAvailable) {
+        this.freeParkingAvailable = freeParkingAvailable;
     }
 
     public String getCity() {

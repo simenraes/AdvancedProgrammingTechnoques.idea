@@ -54,12 +54,15 @@ public class HomeController {
             model.addAttribute("venueName", venueNames[index]);
             model.addAttribute("prevIndex", index>0 ? index-1 : venueNames.length-1);
             model.addAttribute("nextIndex", index<venueNames.length-1 ? index+1 : 0);
-            model.addAttribute("venueName", (venueNames!=null) ? venueNames : "--no venue chosen--");
+            model.addAttribute("venue", venues[index]);
         }
         return "venuedetails";
         //NOG EXCEPTION TOEVOEGEN ZIE BUNDEL P27
         // ZIE BUNDEL 2 PG 4 NOG DOEN
     }
+
+
+
 
 
 
