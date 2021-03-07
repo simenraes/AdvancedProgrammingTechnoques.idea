@@ -55,26 +55,14 @@ public class HomeController {
         return "pay";
     }
 
-    @GetMapping({"/venuedetails", "/venuedetails/{index}"})
-    public String venueDetails(Model model,
-                               @PathVariable(required = false)  Integer index) {
-        if (index!=null && index>=0 && index<venueNames.length ) {
-            model.addAttribute("venueName", venueNames[index]);
-            model.addAttribute("prevIndex", index>0 ? index-1 : venueNames.length-1);
-            model.addAttribute("nextIndex", index<venueNames.length-1 ? index+1 : 0);
-            model.addAttribute("venue", venues[index]);
-        }
-        return "venuedetails";
-        //NOG EXCEPTION TOEVOEGEN ZIE BUNDEL P27
-        // ZIE BUNDEL 2 PG 4 NOG DOEN
-    }
+
 /*@GetMapping({"/venuedetailsbyid", "/venuedetailsbyid/{id}"})
 public String venueDetailsById(Model model,
                                @PathVariable(required = false)Integer id){
         model.addAttribute("venue", venueRepository.findById(id).get());
         return "venuedetails";
 }*/
-@GetMapping({"/venuedetailsbyid", "/venuedetailsbyid/{id}"})
+@GetMapping({"/venuedetails", "/venuedetails/{id}"})
 public String venueDetailsById(Model model,
                            @PathVariable(required = false) Integer id) {
     if (id == null) return "venuedetails";
@@ -109,6 +97,46 @@ public String venueDetailsById(Model model,
 //        model.addAttribute("venueNames", venueNames);
 //        return "venuelist";
 //    }
+@GetMapping("/venuelist/outdoor/{filter}")
+public String venueListOutdoor(Model model,
+                               @PathVariable String filter) {
+    Iterable<Venue> venues = venueRepository.findByOutdoor(filter.equals("yes"));
+    model.addAttribute("venues", venues);
+    model.addAttribute("filterOutdoor", filter.equals("yes") ? "yes" : "no");
+    return "venuelist";
+}
+    @GetMapping("/venuelist/indoor/{filter}")
+    public String venueListIndoor(Model model,
+                                  @PathVariable String filter) {
+        Iterable<Venue> venues = venueRepository.findByIndoor(filter.equals("yes"));
+        model.addAttribute("venues", venues);
+        model.addAttribute("filterIndoor", filter.equals("yes") ? "yes" : "no");
+        return "venuelist";
+    }
+
+    @GetMapping("/venuelist/size/{filter}")
+    public String venueListSize(Model model,
+                                @PathVariable String filter) {
+        Iterable<Venue> venues;
+        switch (filter) {
+            case "S":
+                venues = venueRepository.findByCapacityBetween(0, 200);
+                break;
+            case "M":
+                venues = venueRepository.findByCapacityBetween(200, 600);
+                break;
+            case "L":
+                venues = venueRepository.findByCapacityGreaterThan(600);
+                break;
+            default:
+                venues = venueRepository.findAll();
+                filter = null;
+                break;
+        }
+        model.addAttribute("venues", venues);
+        model.addAttribute("filterSize", filter);
+        return "venuelist";
+    }
 
 
 

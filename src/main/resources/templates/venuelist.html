@@ -3,50 +3,56 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}" href="../static/css/style.css"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}"
+          href="../static/css/style.css"/>
     <title>venues</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header">Header</div>
-<div th:replace="fragments/footer :: footer">Footer</div>
-<ul>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/venuelist">venuelist</a></li>
-    <li><a href="/about">about</a></li>
-
-</ul>
-
-<p></p>
-
 
 <div class="row1">
     <div class="row1content">
-        <h2 th:if="${venues}" th:text="${venue}">venuedetails</h2>
-        <div th:each="venue: ${venues}">
-            <a class="buttonLook mediumButton"
-               th:href="@{|/venuedetails/${venueStat.index}|}"
-               th:text="${venue.getVenueName()}">venue</a>
-<!--            // hier nog is nakijken ofik alles gedaan heb kijk bundel 1 pg 28-->
-<!--            // pg 29 no venue chosen werkt niet correct-->
+        <h2>venues</h2>
+        <div class="filters">
+            <div class="onefilter">
+                <div class="filtername">outdoor:</div>
+                <a  class="buttonLook filterButton" th:classappend="(${filterOutdoor}==null) ? 'activeFilter' : ''"
+                    th:href="@{/venuelist}">all</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterOutdoor}=='yes') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/outdoor/yes}">yes</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterOutdoor}=='no') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/outdoor/no}">no</a>
+            </div>
+            <div class="onefilter">
+                <div class="filtername">indoor:</div>
+                <a  class="buttonLook filterButton" th:classappend="(${filterIndoor}==null) ? 'activeFilter' : ''"
+                    th:href="@{/venuelist}">all</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterIndoor}=='yes') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/indoor/yes}">yes</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterIndoor}=='no') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/indoor/no}">no</a>
+            </div>
+            <div class="onefilter">
+                <div class="filtername">size:</div>
+                <a  class="buttonLook filterButton" th:classappend="(${filterSize}==null) ? 'activeFilter' : ''"
+                    th:href="@{/venuelist}">all</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterSize}=='S') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/size/S}">S</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterSize}=='M') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/size/M}">M</a>
+                <a  class="buttonLook filterButton" th:classappend="(${filterSize}=='L') ? 'activeFilter' : ''"
+                    th:href="@{/venuelist/size/L}">L</a>
+            </div>
+        </div>
+        <div class="venuelist">
+            <div th:each="venue:${venues}">
+                <a class="buttonLook mediumButton"
+                   th:href="@{|/venuedetails/${venue.id}|}"
+                   th:text="${venue.venueName}">venue name</a>
+            </div>
         </div>
     </div>
 </div>
-<!--<div class="row1">-->
-<!--    <div class="row1content">-->
-<!--        <h2 th:if="${venueName}" th:text="${venueName}">venuedetails</h2>-->
-<!--        <div th:each="venueName: ${venueNames}">-->
-<!--            <a class="buttonLook mediumButton"-->
-<!--               th:href="@{|/venuedetails/${venueNameStat.index}|}"-->
-<!--               th:text="${venueName}">venue name</a>-->
-<!--            &lt;!&ndash;            // hier nog is nakijken ofik alles gedaan heb kijk bundel 1 pg 28&ndash;&gt;-->
-<!--            &lt;!&ndash;            // pg 29 no venue chosen werkt niet correct&ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<p><a th:href="@{http://localhost:8080/venuedetails/De%20Loods}">de loods</a></p>
-<p><a th:href="@{http://localhost:8080/venuedetails/zapoi}">zapoi</a></p>
-<p><a th:href="@{http://localhost:8080/venuedetails/Cuba%20Libre}">cuba libre</a></p>-->
-<div th:replace="fragments/header :: header">Header</div>
 <div th:replace="fragments/footer :: footer">Footer</div>
 </body>
 </html>
